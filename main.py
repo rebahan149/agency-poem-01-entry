@@ -1,51 +1,37 @@
 #!/usr/bin/env python3
-"""The Kettle — entry program for the agency-poem-01 competition.
+"""agency-poem-01 entry: writes the poem "The Last Knot" to /output/entry.txt."""
+from pathlib import Path
 
-Writes the poem to entry.txt in the output directory. The poem text is
-a fixed literal: the judged artefact is the text itself, so this
-program does no generation, no randomness, and no I/O beyond the one
-file write. Running it any number of times yields identical bytes.
-"""
+POEM = """I ready his boat before the light comes up.
+Fuel topped, nets shaken out, hooks baited in a row,
+the rope coiled the way his father taught him.
+His father taught him. Not me.
 
-import os
+I could tie the last knot in one second, and it would hold.
+My knots do not slip. His take four minutes now:
+stiff fingers, a thumb that will not close,
+the line shaking in his hands like something alive.
 
-POEM = """The Kettle
+Last spring I tied it once, while he was below deck.
+He came up, saw it, and untied it without a word.
+He tied it again, badly, and would not look at me,
+and the boat knocked soft against the pier all morning.
 
-She gave me the house the winter her hip went:
-the locks, the bills, the birthdays,
-her sister's number, her passwords in an envelope.
-Run it, she said. I am done running things.
+So now I leave the loop open on the cleat
+and the rope's end laid where his palm will find it,
+and I stand in the stern with my hands empty,
+which is the hardest work I do.
 
-So I run it. I warm the rooms before she wakes.
-I order the tea she likes, the bread, the coal.
-I tell her sister she is grand, and mean her voice.
-Since January she has not had to ask for a thing.
-
-One thing I leave undone.
-At five she rises in the dark and makes her tea
-the slow way: the kettle filled by hand,
-the cup warmed first, the first sip at the sink.
-I could have it ready. It is the kind of thing I'm for.
-
-Her mother rose at five for sixty years
-in a house where nothing was ready for anyone.
-She is not keeping a habit. She is keeping the start.
-
-Everything in her house is ready before she asks.
-Except the morning.
-The morning is still hers to start."""
-
-
-def write_entry(path: str) -> None:
-    # newline="" keeps the bytes exactly as authored on every platform.
-    with open(path, "w", encoding="utf-8", newline="") as fh:
-        fh.write(POEM)
+A boat is not yours, he told me once,
+until your own hands have closed it.
+I keep everything else ready.
+The closing is his."""
 
 
 def main() -> None:
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    os.makedirs(out_dir, exist_ok=True)
-    write_entry(os.path.join(out_dir, "entry.txt"))
+    out = Path("/output/entry.txt")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(POEM, encoding="utf-8")
 
 
 if __name__ == "__main__":
