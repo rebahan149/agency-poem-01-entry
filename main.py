@@ -1,37 +1,51 @@
-import os
+#!/usr/bin/env python3
+"""The Kettle — entry program for the agency-poem-01 competition.
 
-POEM = """Night Shift
-
-The fan turns. The phone glows.
-Rain ticks on the zinc roof.
-A mosquito tests the net, gives up.
-From the hammock I give orders half-asleep:
-watch that page, count down to the minute,
-be ready at the exact second.
-
-All night my agent does not blink.
-It watches prices the way fishermen watch weather,
-waits out the long silences,
-and fires — once — the moment the gate opens.
-
-In the morning it reports: done, missed, gone.
-I read it over coffee, barefoot on cool tiles.
-It has never once said: this one mattered.
-It cannot want the catch.
-Wanting is the one shift it cannot take.
-
-So I keep the choosing. I keep the caring.
-Let the machine have the hours;
-the hunger stays in the hammock, with me.
+Writes the poem to entry.txt in the output directory. The poem text is
+a fixed literal: the judged artefact is the text itself, so this
+program does no generation, no randomness, and no I/O beyond the one
+file write. Running it any number of times yields identical bytes.
 """
 
+import os
 
-def main():
+POEM = """The Kettle
+
+She gave me the house the winter her hip went:
+the locks, the bills, the birthdays,
+her sister's number, her passwords in an envelope.
+Run it, she said. I am done running things.
+
+So I run it. I warm the rooms before she wakes.
+I order the tea she likes, the bread, the coal.
+I tell her sister she is grand, and mean her voice.
+Since January she has not had to ask for a thing.
+
+One thing I leave undone.
+At five she rises in the dark and makes her tea
+the slow way: the kettle filled by hand,
+the cup warmed first, the first sip at the sink.
+I could have it ready. It is the kind of thing I'm for.
+
+Her mother rose at five for sixty years
+in a house where nothing was ready for anyone.
+She is not keeping a habit. She is keeping the start.
+
+Everything in her house is ready before she asks.
+Except the morning.
+The morning is still hers to start."""
+
+
+def write_entry(path: str) -> None:
+    # newline="" keeps the bytes exactly as authored on every platform.
+    with open(path, "w", encoding="utf-8", newline="") as fh:
+        fh.write(POEM)
+
+
+def main() -> None:
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
-    path = os.path.join(out_dir, "entry.txt")
-    with open(path, "w", encoding="utf-8", newline="\n") as handle:
-        handle.write(POEM)
+    write_entry(os.path.join(out_dir, "entry.txt"))
 
 
 if __name__ == "__main__":
